@@ -1,0 +1,57 @@
+#!/bin/sh
+
+set -e
+
+SCRIPT_NAME="$1"
+SRC_DIR="$2"
+PR_DIR="$3"
+DEST_DIR="$4"
+
+if [ -z "$SCRIPT_NAME" ]; then
+	echo "Parameter 'SCRIPT_NAME' missing."
+	exit 1
+fi
+
+if [ -z "$SRC_DIR" ]; then
+	SRC_DIR='/home/linus/slides-src'
+fi
+
+if [ -z "$DEST_DIR" ]; then
+	DEST_DIR='/home/linus/final-slides'
+fi
+
+if [ -z "$PR_DIR" ]; then
+	PR_DIR='/home/linus/prbuilder'
+fi
+
+cd $SRC_DIR
+
+if [ ! -f "$SCRIPT_NAME" ]; then
+	echo "Can't find '$SCRIPT_NAME'"
+	exit 1
+fi
+
+
+if [ ! -d "$DEST_DIR" ]; then
+	echo "Can't find 'final-slides' directory inside Docker container."
+	exit 1
+fi
+
+ANYTHING_FOUND=`ls final-slides`
+if [ -z "$ANYTHING_FOUND" ]; then
+	echo "Directory 'final-slides' is empty so copying reveal.js files there."
+	mkdir -p $DEST_DIR/css/ $DEST_DIR/js/ $DEST_DIR/lib/ $DEST_DIR/plugin/
+	cp -ru $PR_DIR/third-part/reveal.js/css/* $DEST_DIR/css/
+	cp -ru $PR_DIR/third-part/reveal.js/js/* $DEST_DIR/js/
+	cp -ru $PR_DIR/third-part/reveal.js/lib/* $DEST_DIR/lib/
+	cp -ru $PR_DIR/third-part/reveal.js/plugin/* $DEST_DIR/plugin/
+else
+	echo "Found some items inside 'final-slides' ('$DEST_DIR') so skipping copying of reveal.js there."
+fi
+
+if [ -d $SRC_DIR/img/ ]; then
+	cp -ru $SRC_DIR/img/ $DEST_DIR/img/
+fi
+
+echo "Running script '$SCRIPT_NAME'"
+perl $SCRIPT_NAME

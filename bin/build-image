@@ -1,0 +1,42 @@
+#!/bin/sh
+
+set -e
+
+function echo_help {
+cat <<USAGE_END
+Usage:
+  ./bin/build-image $IMAGE_TAG [$DEBUG]
+
+  $IMAGE_TAG ... image tag, for your local build use 'local'
+  $DEBUG     ... use 'debug' to get more verbose output
+
+USAGE_END
+}
+
+if [ -z "$1" ]; then
+    echo_help
+    exit 1
+fi
+
+if [ "$1" == '--help' -o "$1" == '-h' ]; then
+    echo_help
+    exit
+fi
+
+
+IMAGE_TAG="$1"
+DEBUG="$2"
+
+if [ "$DEBUG" ]; then
+	set -x
+fi
+
+if [ "$DEBUG" ]; then
+	echo "Docker version:"
+	docker --version
+fi
+
+IMAGE_NAME='mj41/prbuilder'
+
+# build image
+docker build --force-rm --rm -t="$IMAGE_NAME:$IMAGE_TAG" . 2>&1 | tee /tmp/docker-git-course-mj41.build.log

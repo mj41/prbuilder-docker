@@ -1,0 +1,66 @@
+#!/bin/bash
+
+set -e
+
+function echo_help {
+cat <<USAGE_END
+Usage:
+  ./bin/build-slides $SLIDES_DIR $SCRIPT_NAME [$IMAGE] [$DEBUG]
+
+  $SLIDES_DIR  ... absolute path to slides directory
+  $SCRIPT_NAME ... script to run inside Docker images
+  $IMAGE       ... image tag, for your local build use 'local'
+  $DEBUG       ... Use 'debug' to get more verbose output
+
+USAGE_END
+}
+
+if [ -z "$1" ]; then
+    echo_help
+    exit 1
+fi
+
+if [ "$1" == '--help' -o "$1" == '-h' ]; then
+    echo_help
+    exit
+fi
+
+SLIDES_DIR="$1"
+SCRIPT_NAME="$2"
+IMAGE="$3"
+DEBUG="$4"
+
+if [ "$DEBUG" ]; then
+	set -x
+fi
+
+if [ -z "$IMAGE" ]; then
+	IMAGE="mj41/prbuilder:stable"
+fi
+
+if [ -z "$IMAGE" ]; then
+	LSCMD="ls $SLIDES_DIR\*.pl"
+	SCRIPT_NAME=`$LSCMD`
+fi
+
+FULL_SC_PATH="$SLIDES_DIR/$SCRIPT_NAME"
+if [ ! -e "$FULL_SC_PATH" ]; then
+	echo "Can't find '$FULL_SC_PATH'"
+	exit 1
+fi
+
+FINAL_DIR="$SLIDES_DIR/final-slides"
+
+chcon -Rt svirt_sandbox_file_t $SLIDES_DIR
+mkdir -p $FINAL_DIR
+
+docker run --rm -i -t \
+  -v $SLIDES_DIR/:/home/linus/slides-src/:ro \
+  -v $FINAL_DIR:/home/linus/final-slides:rw \
+  -e "SCRIPT_NAME=$SCRIPT_NAME" \
+   $IMAGE ./docker-bin/docker-build-slides $SCRIPT_NAME
+
+echo "Slides should be finished. Try to run this:"
+echo ""
+echo "firefox $FINAL_DIR/index.html"
+echo ""
