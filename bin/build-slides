@@ -5,12 +5,12 @@ set -e
 function echo_help {
 cat <<USAGE_END
 Usage:
-  ./bin/build-slides $SLIDES_DIR $SCRIPT_NAME [$IMAGE] [$DEBUG]
+  ./bin/build-slides SLIDES_DIR SCRIPT_NAME [IMAGE] [DEBUG]
 
-  $SLIDES_DIR  ... absolute path to slides directory
-  $SCRIPT_NAME ... script to run inside Docker images
-  $IMAGE       ... image tag, for your local build use 'local'
-  $DEBUG       ... Use 'debug' to get more verbose output
+  SLIDES_DIR  ... absolute path to slides directory
+  SCRIPT_NAME ... script to run inside Docker images (name only or relative path)
+  IMAGE       ... docker image name (default mj41/prbuilder:stable)
+  DEBUG       ... use 'debug' to get more verbose output
 
 USAGE_END
 }

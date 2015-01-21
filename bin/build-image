@@ -5,10 +5,10 @@ set -e
 function echo_help {
 cat <<USAGE_END
 Usage:
-  ./bin/build-image $IMAGE_TAG [$DEBUG]
+  ./bin/build-image IMAGE_TAG [DEBUG]
 
-  $IMAGE_TAG ... image tag, for your local build use 'local'
-  $DEBUG     ... use 'debug' to get more verbose output
+  IMAGE_TAG ... image tag, for your local build use 'local'
+  DEBUG     ... use 'debug' to get more verbose output
 
 USAGE_END
 }
