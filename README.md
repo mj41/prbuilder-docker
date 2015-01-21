@@ -1,7 +1,7 @@
 prbuilder-docker
 ================
 
-Tools and documentation to build your presentation with Presentation::Builder inside Docker container.
+[prbuilder-docker](https://github.com/mj41/prbuilder-docker) is set of tools and documentation to build your presentation programmatically with [Presentation::Builder](https://github.com/mj41/Presentation-Builder) (Perl 5) inside [Docker container](https://registry.hub.docker.com/u/mj41/prbuilder/).
 
 Example
 -------
