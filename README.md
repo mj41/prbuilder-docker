@@ -6,7 +6,7 @@ Tools and documentation to build your presentation with Presentation::Builder in
 Example
 -------
 
-See [github.com/mj41/git-course-mj41](github.com/mj41/git-course-mj41) repository. 
+See [github.com/mj41/git-course-mj41](https://github.com/mj41/git-course-mj41) repository. 
 ![Example of Presentation::Builder code and results](https://raw.githubusercontent.com/mj41/prbuilder-docker/master/docs/git-course-example.png)
 File [git-course-mj41.pl](https://github.com/mj41/git-course-mj41/blob/master/git-course-mj41.pl#L200)
 contains slides definitions (the left side of the image above) to generate presentation's slides 
