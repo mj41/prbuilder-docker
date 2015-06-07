@@ -1,6 +1,8 @@
 FROM fedora:21
 MAINTAINER Michal Jurosz <mj@mj41.cz>
 
+RUN yum makecache fast
+
 # Install man pages
 RUN sed -i '/nodocs/d' /etc/yum.conf
 RUN yum update -y
