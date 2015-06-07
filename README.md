@@ -23,13 +23,14 @@ HowTo (git-course-mj41 example):
     docker info
     docker pull mj41/prbuilder:stable
 
+    cd ~/devel
+    git clone git@github.com:mj41/prbuilder-docker.git
     mkdir ~/devel/my-slides
     cd ~/devel/my-slides
     git clone git@github.com:mj41/git-course-mj41.git
-    git clone git@github.com:mj41/prbuilder-docker.git
-    cd prbuilder-docker
-    ./bin/build-slides `pwd`/../git-course-mj41/ git-course-mj41.pl
-    firefox `pwd`/../git-course-mj41/final-slides/index.html
+    cd ~/devel/prbuilder-docker
+    ./bin/build-slides ~/devel/my-slides/git-course-mj41/ git-course-mj41.pl
+    firefox ~/devel/my-slides/git-course-mj41/final-slides/index.html
 
 Links
 -----
