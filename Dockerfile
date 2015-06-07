@@ -24,7 +24,7 @@ ENV PERL5LIB /home/linus/prbuilder/third-part/Presentation-Builder/lib:$PER5LIB
 
 WORKDIR /home/linus/prbuilder/third-part/reveal.js/
 RUN echo "Force Docker image rebuild of reveal.js to particular revision." \
-  && git fetch && git reset --hard 3.0.0 \
+  && git fetch && git reset --hard 3.1.0 \
   && git log -n1 --oneline HEAD
 
 WORKDIR /home/linus/prbuilder/third-part/Presentation-Builder/
