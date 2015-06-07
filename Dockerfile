@@ -1,8 +1,11 @@
 FROM fedora:21
 MAINTAINER Michal Jurosz <mj@mj41.cz>
 
+# Install man pages
+RUN sed -i '/nodocs/d' /etc/yum.conf
 RUN yum update -y
-RUN yum install -y tar gzip unzip git make curl tree diffutils gcc \
+
+RUN yum install -y man tar gzip unzip git make curl tree diffutils gcc \
   perl perl-Test-Simple perl-ExtUtils-MakeMaker perl-App-cpanminus \
   perl-autodie perl-File-Slurp perl-Text-Markdown perl-HTML-Parser perl-File-ShareDir
 
