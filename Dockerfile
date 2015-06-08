@@ -34,7 +34,7 @@ RUN echo "Force Docker image rebuild of reveal.js to particular revision." \
 
 WORKDIR /home/linus/prbuilder/third-part/Presentation-Builder/
 RUN echo "Force Docker image rebuild of Presentation-Builder to particular revision." \
-  && git fetch && git reset --hard d29b308 \
+  && git fetch && git reset --hard 6deb8b4 \
   && git log -n1 --oneline HEAD
 
 ADD docker-bin/ /home/linus/prbuilder/docker-bin/
