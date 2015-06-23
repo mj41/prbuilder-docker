@@ -5,12 +5,13 @@ set -e
 function echo_help {
 cat <<USAGE_END
 Usage:
-  ./bin/build-slides SLIDES_DIR SCRIPT_NAME [IMAGE] [DEBUG]
+  ./bin/build-slides SLIDES_DIR SCRIPT_NAME [IMAGE] [DEBUG] [SCRIPT_PARAMS]
 
-  SLIDES_DIR  ... absolute path to slides directory
-  SCRIPT_NAME ... script to run inside Docker images (name only or relative path)
-  IMAGE       ... docker image name (default mj41/prbuilder:stable)
-  DEBUG       ... use 'debug' to get more verbose output
+  SLIDES_DIR    ... absolute path to slides directory
+  SCRIPT_NAME   ... script to run inside Docker images (name only or relative path)
+  IMAGE         ... docker image name (default mj41/prbuilder:stable)
+  DEBUG         ... use 'debug' to get more verbose output
+  SCRIPT_PARAMS ... script parameters
 
 USAGE_END
 }
@@ -29,6 +30,11 @@ SLIDES_DIR="$1"
 SCRIPT_NAME="$2"
 IMAGE="$3"
 DEBUG="$4"
+shift || :
+shift || :
+shift || :
+shift || :
+# SCRIPT_PARAMS $@
 
 if [ "$DEBUG" ]; then
 	set -x
@@ -57,8 +63,7 @@ mkdir -p $FINAL_DIR
 docker run --rm -i -t \
   -v $SLIDES_DIR/:/home/linus/slides-src/:ro \
   -v $FINAL_DIR:/home/linus/final-slides:rw \
-  -e "SCRIPT_NAME=$SCRIPT_NAME" \
-   $IMAGE ./docker-bin/docker-build-slides $SCRIPT_NAME
+   $IMAGE ./docker-bin/docker-build-slides $SCRIPT_NAME "" "" "" "$@"
 
 echo "Slides should be finished. Try to run this:"
 echo ""
