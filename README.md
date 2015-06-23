@@ -12,7 +12,7 @@ File [git-course-mj41.pl](https://github.com/mj41/git-course-mj41/blob/master/gi
 contains slides definitions (the left side of the image above) to generate presentation's slides 
 (the right side of the image) programmatically.
 
-See whole git-course-mj41 presentation on [mj41.cz/static/git-course-mj41-v5](http://mj41.cz/static/git-course-mj41-v5/).
+See whole git-course-mj41 presentation on [mj41.cz/static/git-course-mj41](http://mj41.cz/static/git-course-mj41/).
 
 Prerequisities:
 * [Docker](https://docs.docker.com/) installed
